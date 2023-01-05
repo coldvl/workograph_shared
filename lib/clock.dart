@@ -92,21 +92,10 @@ class Clock extends State<HomeApp> {
                 _hasBeenPressed = !_hasBeenPressed;
               });
             },
-            icon: const Icon(Icons.not_started_outlined),
-            label: const Text('Start'),
-          ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.all(20.0),
-              minimumSize: const Size(250.0, 30.0),
-            ),
-            onPressed: () {
-              stop();
-            },
-            icon: const Icon(Icons.stop_circle_outlined),
-            label: const Text('Stop'),
+            icon: _hasBeenPressed
+                ? const Icon(Icons.not_started_outlined)
+                : const Icon(Icons.stop_circle_outlined),
+            label: _hasBeenPressed ? const Text('Start') : const Text('Stop'),
           ),
           TextButton.icon(
             style: TextButton.styleFrom(
