@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:workograph_shared/services/database_service.dart';
+// ignore_for_file: library_private_types_in_public_api, prefer_final_fields, unused_element, use_build_context_synchronously
 
-import '../models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:workograph_shared/models/user.dart';
+import 'package:workograph_shared/services/database_service.dart';
+import 'package:workograph_shared/pages/add_user.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key, this.user}) : super(key: key);
@@ -28,9 +30,9 @@ class _UserPageState extends State<UserPage> {
   Future<List<User>> _getUsers() async {
     final users = await _databaseService.users();
     if (_users.isEmpty) _users.addAll(users);
-    // if (widget.user != null) {
-    //   _selectedUser = _users.indexWhere((e) => e.id == widget.user!.userId);
-    // }
+    if (widget.user != null) {
+      _selectedUser = _users.indexWhere((e) => e.id == widget.user!.id);
+    }
     return _users;
   }
 
@@ -60,6 +62,7 @@ class _UserPageState extends State<UserPage> {
     setState(() {});
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(199, 10, 210, 203),
@@ -67,119 +70,6 @@ class _UserPageState extends State<UserPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(' '),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option A'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option B'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option C'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option D'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option E'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option F'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option H'),
-            ),
-            const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option I'),
-            ),
-            const Text(''),
             TextButton.icon(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -192,6 +82,19 @@ class _UserPageState extends State<UserPage> {
               },
               icon: const Icon(Icons.arrow_back_ios_new),
               label: const Text('Back'),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (_) => const AddUserPage(),
+                        fullscreenDialog: true,
+                      ),
+                    )
+                    .then((_) => setState(() {}));
+              },
+              child: const Icon(Icons.add),
             ),
           ],
         ),

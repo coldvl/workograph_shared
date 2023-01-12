@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:workograph_shared/pages/home_page.dart';
 
@@ -12,8 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter SQFLite Example',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal)
-            .copyWith(secondary: Colors.tealAccent),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow)
+            .copyWith(secondary: const Color.fromARGB(255, 255, 168, 1)),
       ),
       home: const HomePage(),
     );

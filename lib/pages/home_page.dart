@@ -1,10 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:workograph_shared/models/user.dart';
-import '../services/database_service.dart';
 import 'page_with_list_of_users.dart';
-import 'statistics.dart';
-import 'overall.dart';
-import 'clock.dart';
+import 'statistics_for_month.dart';
+import 'statistics_for_today.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,16 +28,16 @@ class HomePage extends StatefulWidget {
 // }
 
 class _HomePageState extends State<HomePage> {
-  final DatabaseService _databaseService = DatabaseService();
+  // final DatabaseService _databaseService = DatabaseService();
 
-  Future<List<User>> _getUsers() async {
-    return await _databaseService.users();
-  }
+  // Future<List<User>> _getUsers() async {
+  //   return await _databaseService.users();
+  // }
 
-  Future<void> _onUserDelete(User user) async {
-    await _databaseService.deleteUser(user.id!);
-    setState(() {});
-  }
+  // Future<void> _onUserDelete(User user) async {
+  //   await _databaseService.deleteUser(user.id!);
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context)
                     .push(
                       MaterialPageRoute(
-                        builder: (_) => const UserPage(),
+                        builder: (_) => const StatsForToday(),
                         fullscreenDialog: true,
                       ),
                     )
@@ -117,7 +116,15 @@ class _HomePageState extends State<HomePage> {
                 minimumSize: const Size(250.0, 30.0),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/statistics');
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (_) => const StatsForMonth(),
+                        fullscreenDialog: true,
+                      ),
+                    )
+                    .then((_) => setState(() {}));
+                // Navigator.pushNamed(context, '/statistics');
               },
               icon: const Icon(Icons.arrow_forward_ios_outlined),
               label: const Text('    Statistics    '),
