@@ -47,46 +47,102 @@ class Main extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                       color: Colors.black)),
             ),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/page_1');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('    Continue    '),
+                  ),
+                ],
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/page_1');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('    Continue    '),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFE70B0B),
+                          Color(0xFFFF6201),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(20.0),
+                      minimumSize: const Size(250.0, 30.0),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/Overall');
+                    },
+
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Overall status'),
+                  ),
+                ],
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/Overall');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Overall status'),
             ),
+
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFF000000),
+                          Color(0xFFFFFFFF),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(20.0),
+                      minimumSize: const Size(250.0, 30.0),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/statistics');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('    Statistics    '),
+                  ),
+                ],
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/statistics');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('    Statistics    '),
             ),
           ],
         ),

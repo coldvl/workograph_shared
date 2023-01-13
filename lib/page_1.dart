@@ -14,124 +14,260 @@ class Pageone extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(' '),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option A'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option A'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option B'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option B'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option C'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option C'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option D'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option D'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option E'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option E'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option F'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option F'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option H'),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option H'),
             ),
             const Text(''),
-            TextButton.icon(
-              style: TextButton.styleFrom(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFFFFC401),
+                          Color(0xC70AD2CB),
 
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(20.0),
-                minimumSize: const Size(250.0, 30.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        minimumSize: const Size(250.0, 30.0),
+                        foregroundColor: Colors.white
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context,'/HomeApp');
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    label: const Text('Option I',style: TextStyle(),),
+                  ),
+                ],
               ),
-              onPressed:() {
-                Navigator.pushNamed(context,'/HomeApp');
-              },
-              icon: const Icon(Icons.arrow_forward_ios_outlined),
-              label: const Text('Option I'),
             ),
             const Text(''),
             TextButton.icon(
@@ -148,7 +284,6 @@ class Pageone extends StatelessWidget{
               icon: const Icon(Icons.arrow_back_ios_new),
               label: const Text('Back'),
             ),
-
           ],
         ),
       ),
