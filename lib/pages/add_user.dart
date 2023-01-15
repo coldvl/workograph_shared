@@ -21,10 +21,16 @@ class _AddUserPageState extends State<AddUserPage> {
 
   int _selectedUser = 0;
   int _selectedWorkingHours = 0;
+  int? _selectedId = 0;
 
   @override
   void initState() {
     super.initState();
+    if (widget.user != null) {
+      _nameController.text = widget.user!.name;
+      _selectedWorkingHours = widget.user!.workedHours;
+      _selectedId = widget.user!.id;
+    }
   }
 
   Future<List<User>> _getUsers() async {
