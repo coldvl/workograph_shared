@@ -5,14 +5,14 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 
 class User {
-  final int? id;
+  int id;
   final String name;
-  final int workedHours;
+  int workedHours;
 
   User({
-    this.id,
+    required this.id,
     required this.name,
-    required this.workedHours,
+    this.workedHours = 0,
   });
 
   // Convert a User into a Map. The keys must correspond to the names of the
@@ -27,7 +27,7 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id'].toInt() ?? 0,
       name: map['name'] ?? '',
       workedHours: map['workedHours']?.toInt() ?? 0,
     );
