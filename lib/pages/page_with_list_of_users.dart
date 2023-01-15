@@ -44,13 +44,12 @@ class _UserPageState extends State<UserPage> {
     // Add save code here
     widget.user == null
         ? await _databaseService.insertUser(
-            User(name: name, workedHours: workingHours, id: user.id!),
+            User(name: name, id: user.id),
           )
         : await _databaseService.updateUser(
             User(
               id: widget.user!.id,
               name: name,
-              workedHours: workingHours,
             ),
           );
 
@@ -58,7 +57,7 @@ class _UserPageState extends State<UserPage> {
   }
 
   Future<void> _onUserDelete(User user) async {
-    await _databaseService.deleteUser(user.id!);
+    await _databaseService.deleteUser(user.id);
     setState(() {});
   }
 
@@ -83,18 +82,21 @@ class _UserPageState extends State<UserPage> {
               icon: const Icon(Icons.arrow_back_ios_new),
               label: const Text('Back'),
             ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (_) => const AddUserPage(),
-                        fullscreenDialog: true,
-                      ),
-                    )
-                    .then((_) => setState(() {}));
-              },
-              child: const Icon(Icons.add),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(
+                        MaterialPageRoute(
+                          builder: (_) => const AddUserPage(),
+                          fullscreenDialog: true,
+                        ),
+                      )
+                      .then((_) => setState(() {}));
+                },
+                child: const Icon(Icons.add),
+              ),
             ),
           ],
         ),

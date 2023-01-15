@@ -15,13 +15,14 @@ class AddUserPage extends StatefulWidget {
 
 class _AddUserPageState extends State<AddUserPage> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _idController = TextEditingController();
   static final List<User> _users = [];
 
   final DatabaseService _databaseService = DatabaseService();
 
   int _selectedUser = 0;
   int _selectedWorkingHours = 0;
-  int? _selectedId = 0;
+  int _selectedId = 0;
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _AddUserPageState extends State<AddUserPage> {
     if (widget.user != null) {
       _nameController.text = widget.user!.name;
       _selectedWorkingHours = widget.user!.workedHours;
-      _selectedId = widget.user!.id;
+      widget.user!.id = int.parse(_idController.text); //edited so keep in mind
     }
   }
 
@@ -44,19 +45,17 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Future<void> _onSave() async {
     final name = _nameController.text;
-    final workingHours = _selectedWorkingHours;
-    final user = _users[_selectedUser];
+    final id = int.parse(_idController.text);
 
     // Add save code here
     widget.user == null
         ? await _databaseService.insertUser(
-            User(name: name, workedHours: workingHours, id: user.id!),
+            User(name: name, id: id),
           )
         : await _databaseService.updateUser(
             User(
-              id: widget.user!.id,
+              id: id,
               name: name,
-              workedHours: workingHours,
             ),
           );
 
@@ -64,81 +63,95 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   Future<void> _onUserDelete(User user) async {
-    await _databaseService.deleteUser(user.id!);
+    await _databaseService.deleteUser(user.id);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Add User'),
-          actions: [
-            if (widget.user != null)
-              IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () => _onUserDelete(widget.user!),
+      appBar: AppBar(
+        title: const Text('Add User'),
+        actions: [
+          if (widget.user != null)
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () => _onUserDelete(widget.user!),
+            ),
+        ],
+      ),
+      body: FutureBuilder<List<User>>(
+        future: _getUsers(),
+        builder: (context, snapshot) {
+          return ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
+                  ),
+                ),
               ),
-          ],
-        ),
-        body: FutureBuilder<List<User>>(
-          future: _getUsers(),
-          builder: (context, snapshot) {
-            return ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                    ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _idController,
+                  decoration: const InputDecoration(
+                    labelText: 'ID',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButtonFormField<int>(
-                    value: _selectedUser,
-                    items: _users
-                        .map(
-                          (e) => DropdownMenuItem<int>(
-                            value: _users.indexOf(e),
-                            child: Text(e.name), //!
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedUser = value!;
-                      });
-                    },
-                  ),
+                // may be needed in future
+                // child: DropdownButtonFormField<int>(
+                //   value: _selectedUser,
+                //   items: _users
+                //       .map(
+                //         (e) => DropdownMenuItem<int>(
+                //           value: _users.indexOf(e),
+                //           child: Text(e.name), //!
+                //         ),
+                //       )
+                //       .toList(),
+                //   onChanged: (value) {
+                //     setState(() {
+                //       _selectedUser = value!;
+                //     });
+                //   },
+                // ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: DropdownButtonFormField<int>(
+              //     value: _selectedWorkingHours,
+              //     items: List.generate(
+              //       24,
+              //       (index) => DropdownMenuItem<int>(
+              //         value: index,
+              //         child: Text('$index hours'),
+              //       ),
+              //     ),
+              //     onChanged: (value) {
+              //       setState(() {
+              //         _selectedWorkingHours = value!;
+              //       });
+              //     },
+              //   ),
+              // ),
+              ElevatedButton(
+                onPressed: _onSave,
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromARGB(255, 255, 168, 1),
+                  minimumSize: const Size(25.0, 40.0),
+                  maximumSize: const Size(35.0, 40.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButtonFormField<int>(
-                    value: _selectedWorkingHours,
-                    items: List.generate(
-                      24,
-                      (index) => DropdownMenuItem<int>(
-                        value: index,
-                        child: Text('$index hours'),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedWorkingHours = value!;
-                      });
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _onSave,
-                  child: const Text('Save'),
-                ),
-              ],
-            );
-          },
-        ));
+                child: const Text('Save'),
+              ),
+            ],
+          );
+        },
+      ),
+      backgroundColor: const Color.fromARGB(199, 10, 210, 203),
+    );
   }
 }
