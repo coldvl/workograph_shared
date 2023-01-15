@@ -1,6 +1,11 @@
 import 'package:workograph_shared/models/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import 'package:path_provider/path_provider.dart';
 
 class DatabaseService {
   // Singleton pattern
@@ -17,30 +22,50 @@ class DatabaseService {
   }
 
   Future<Database> _initDatabase() async {
-    final databasePath = await getDatabasesPath();
-
-    // Set the path to the database. Note: Using the `join` function from the
-    // `path` package is best practice to ensure the path is correctly
-    // constructed for each platform.
-    final path = join(databasePath, 'flutter_sqflite_database.db');
-
-    // Set the version. This executes the onCreate function and provides a
-    // path to perform database upgrades and downgrades.
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'allUsers.db');
     return await openDatabase(
       path,
-      onCreate: _onCreate,
       version: 1,
-      onConfigure: (db) async => await db.execute('PRAGMA foreign_keys = ON'),
+      onCreate: _onCreate,
     );
   }
 
-  // When the database is first created, create a table to store users
-  Future<void> _onCreate(Database db, int version) async {
-    // Run the CREATE {users} TABLE statement on the database.
-    await db.execute(
-      'CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, workedHours INTEGER)',
-    );
+  Future _onCreate(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE users(
+          id INTEGER PRIMARY KEY,
+          name TEXT,
+          workedHours INTEGER
+      )
+      ''');
   }
+
+  // Future<Database> _initDatabase() async {
+  //   final databasePath = await getDatabasesPath();
+
+  //   // Set the path to the database. Note: Using the `join` function from the
+  //   // `path` package is best practice to ensure the path is correctly
+  //   // constructed for each platform.
+  //   final path = join(databasePath, 'flutter_sqflite_database.db');
+
+  //   // Set the version. This executes the onCreate function and provides a
+  //   // path to perform database upgrades and downgrades.
+  //   return await openDatabase(
+  //     path,
+  //     onCreate: _onCreate,
+  //     version: 1,
+  //     onConfigure: (db) async => await db.execute('PRAGMA foreign_keys = ON'),
+  //   );
+  // }
+
+  // // When the database is first created, create a table to store users
+  // Future<void> _onCreate(Database db, int version) async {
+  //   // Run the CREATE {users} TABLE statement on the database.
+  //   await db.execute(
+  //     'CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, workedHours INTEGER)',
+  //   );
+  // }
 
   // Define a function that inserts users into the database
 
