@@ -71,20 +71,19 @@ class _AddUserPageState extends State<AddUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add User'),
-        actions: [
-          if (widget.user != null)
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () => _onUserDelete(widget.user!),
-            ),
-        ],
-      ),
-      body: FutureBuilder<List<User>>(
-        future: _getUsers(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
+        appBar: AppBar(
+          title: const Text('Add User'),
+          actions: [
+            if (widget.user != null)
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () => _onUserDelete(widget.user!),
+              ),
+          ],
+        ),
+        body: FutureBuilder<List<User>>(
+          future: _getUsers(),
+          builder: (context, snapshot) {
             return ListView(
               children: [
                 Padding(
@@ -139,13 +138,7 @@ class _AddUserPageState extends State<AddUserPage> {
                 ),
               ],
             );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
+          },
+        ));
   }
 }
