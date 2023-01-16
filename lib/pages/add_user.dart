@@ -49,10 +49,10 @@ class _AddUserPageState extends State<AddUserPage> {
 
     // Add save code here
     widget.user == null
-        ? await _databaseService.insertUser(
+        ? _databaseService.addUser(
             User(name: name, id: id),
           )
-        : await _databaseService.updateUser(
+        : _databaseService.updateUser(
             User(
               id: id,
               name: name,
