@@ -38,8 +38,8 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(199, 10, 210, 203),
-        body: Center(
-          child: FutureBuilder<List<User>>(
+        body: Column(children: [
+          FutureBuilder<List<User>>(
             future: _databaseService.getUsers(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
@@ -72,63 +72,71 @@ class _UserPageState extends State<UserPage> {
                   );
                 },
               );
+
+              /* */
             },
-            // child: Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     TextButton(
-            //       style: TextButton.styleFrom(
-            //         backgroundColor: Colors.black,
-            //         foregroundColor: Colors.white,
-            //         padding: const EdgeInsets.all(20.0),
-            //         minimumSize: const Size(250.0, 30.0),
-            //       ),
-            //       onPressed: () {
-            //         Navigator.of(context)
-            //             .push(
-            //               MaterialPageRoute(
-            //                 builder: (_) => const HomeApp(),
-            //                 fullscreenDialog: true,
-            //               ),
-            //             )
-            //             .then((_) => setState(() {}));
-            //       },
-            //       child: const Text('*тут можуть бути наші юзери*'),
-            //     ),
-            //     TextButton.icon(
-            //       style: TextButton.styleFrom(
-            //         backgroundColor: Colors.black,
-            //         foregroundColor: Colors.white,
-            //         padding: const EdgeInsets.all(20.0),
-            //         minimumSize: const Size(250.0, 30.0),
-            //       ),
-            //       onPressed: () {
-            //         Navigator.pop(context);
-            //       },
-            //       icon: const Icon(Icons.arrow_back_ios_new),
-            //       label: const Text('Back'),
-            //     ),
-            //     Padding(
+
+            /*child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Padding(
+            //   padding: const EdgeInsets.all(20),
+            //   child: TextButton(
+            //     style: TextButton.styleFrom(
+            //       backgroundColor: Colors.black,
+            //       foregroundColor: Colors.white,
             //       padding: const EdgeInsets.all(20.0),
-            //       child: FloatingActionButton(
-            //         onPressed: () {
-            //           Navigator.of(context)
-            //               .push(
-            //                 MaterialPageRoute(
-            //                   builder: (_) => const AddUserPage(),
-            //                   fullscreenDialog: true,
-            //                 ),
-            //               )
-            //               .then((_) => setState(() {}));
-            //         },
-            //         child: const Icon(Icons.add),
-            //       ),
+            //       minimumSize: const Size(250.0, 30.0),
             //     ),
-            //   ],
+            //     onPressed: () {
+            //       Navigator.of(context)
+            //           .push(
+            //             MaterialPageRoute(
+            //               builder: (_) => const HomeApp(),
+            //               fullscreenDialog: true,
+            //             ),
+            //           )
+            //           .then((_) => setState(() {}));
+            //     },
+            //     child: const Text('*тут можуть бути наші юзери*'),
+            //   ),
             // ),
+            
+          ],
+        ),
+        */
           ),
-        ));
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.all(20.0),
+              minimumSize: const Size(250.0, 30.0),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios_new),
+            label: const Text('Back'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (_) => const AddUserPage(),
+                        fullscreenDialog: true,
+                      ),
+                    )
+                    .then((_) => setState(() {}));
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ]));
   }
-}
 
 // E/SQLiteLog( 4064): (1) no such table: users in "SELECT * FROM users ORDER BY id"
+}
