@@ -11,34 +11,8 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-// void main() {
-//   runApp(
-//     MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       initialRoute: '/',
-//       routes: {
-//         '/': (context) => const Main(),
-//         '/page_1': (context) => const Pageone(),
-//         '/Overall': (context) => const OverallStatus(),
-//         '/statistics': (context) => const Statistics(),
-//         '/HomeApp': (context) => const HomeApp(),
-//       },
-//     ),
-//   );
-// }
 
 class _HomePageState extends State<HomePage> {
-  // final DatabaseService _databaseService = DatabaseService();
-
-  // Future<List<User>> _getUsers() async {
-  //   return await _databaseService.users();
-  // }
-
-  // Future<void> _onUserDelete(User user) async {
-  //   await _databaseService.deleteUser(user.id!);
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

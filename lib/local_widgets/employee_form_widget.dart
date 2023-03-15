@@ -22,21 +22,22 @@ class EmployeeFormWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Slider(
-                      value: (totalHours ?? 0).toDouble(),
-                      min: 0,
-                      max: 5,
-                      divisions: 5,
-                      onChanged: (totalHours) =>
-                          onChangedTotalHours(totalHours.toInt()),
-                    ),
-                  )
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Slider(
+              //         value: (totalHours ?? 0).toDouble(),
+              //         min: 0,
+              //         max: 5,
+              //         divisions: 5,
+              //         onChanged: (totalHours) =>
+              //             onChangedTotalHours(totalHours.toInt()),
+              //       ),
+              //     )
+              //   ],
+              // ),
               buildName(),
+              buildTotalHours(),
               const SizedBox(height: 8),
             ],
           ),
@@ -47,14 +48,32 @@ class EmployeeFormWidget extends StatelessWidget {
         maxLines: 1,
         initialValue: name,
         style: const TextStyle(
-          color: Colors.white70,
+          color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 24,
         ),
         decoration: const InputDecoration(
           border: InputBorder.none,
           hintText: 'Name',
-          hintStyle: TextStyle(color: Colors.white70),
+          hintStyle: TextStyle(color: Colors.black),
+        ),
+        validator: (title) =>
+            title != null && title.isEmpty ? 'The title cannot be empty' : null,
+        onChanged: onChangedName,
+      );
+
+  Widget buildTotalHours() => TextFormField(
+        maxLines: 1,
+        initialValue: totalHours.toString(),
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          hintText: 'The sum of hours worked',
+          hintStyle: TextStyle(color: Colors.black),
         ),
         validator: (title) =>
             title != null && title.isEmpty ? 'The title cannot be empty' : null,
