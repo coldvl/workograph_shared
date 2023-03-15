@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context)
                     .push(
                       MaterialPageRoute(
-                        builder: (_) => const UserPage(),
+                        builder: (_) => EmployeesPage(),
                         fullscreenDialog: true,
                       ),
                     )

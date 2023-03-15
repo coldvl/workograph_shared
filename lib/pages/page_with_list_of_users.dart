@@ -6,137 +6,96 @@ import 'package:workograph_shared/services/database_service.dart';
 import 'package:workograph_shared/pages/add_user.dart';
 import 'package:workograph_shared/pages/clock.dart';
 import 'package:flutter/widgets.dart';
+import 'package:workograph_shared/local_widgets/employee_form_widget.dart';
+import 'package:workograph_shared/local_widgets/employee_card_widget.dart';
+import 'package:workograph_shared/pages/employee_detail_page.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({Key? key, this.user}) : super(key: key);
-  final User? user;
-
+class EmployeesPage extends StatefulWidget {
   @override
-  _UserPageState createState() => _UserPageState();
+  _EmployeesPageState createState() => _EmployeesPageState();
 }
 
-class _UserPageState extends State<UserPage> {
-  final TextEditingController _nameController = TextEditingController();
-  static final List<User> _users = [];
-
-  final DatabaseService _databaseService = DatabaseService();
-
-  int _selectedUser = 0;
-  int _selectedWorkingHours = 0;
+class _EmployeesPageState extends State<EmployeesPage> {
+  late List<Employee> employees;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-  }
 
-  Future<void> _onUserDelete(User user) async {
-    await _databaseService.deleteUser(user.id);
-    setState(() {});
+    refreshNotes();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(199, 10, 210, 203),
-        body: Column(children: [
-          FutureBuilder<List<User>>(
-            future: _databaseService.getUsers(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
-              final List<User> users = snapshot.data ?? [];
-              if (snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+  void dispose() {
+    EmployeesDatabase.instance.close();
 
-              return ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final User user = users[index];
-                  return Card(
-                    child: ListTile(
-                      title: const Text('txt'),
-                      subtitle: Text('${user.workedHours}'),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () => _onUserDelete(user),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          _selectedUser = user.id;
-                          _selectedWorkingHours = user.workedHours;
-                        });
-                      },
-                    ),
-                  );
-                },
-              );
-
-              /* */
-            },
-
-            /*child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(20),
-            //   child: TextButton(
-            //     style: TextButton.styleFrom(
-            //       backgroundColor: Colors.black,
-            //       foregroundColor: Colors.white,
-            //       padding: const EdgeInsets.all(20.0),
-            //       minimumSize: const Size(250.0, 30.0),
-            //     ),
-            //     onPressed: () {
-            //       Navigator.of(context)
-            //           .push(
-            //             MaterialPageRoute(
-            //               builder: (_) => const HomeApp(),
-            //               fullscreenDialog: true,
-            //             ),
-            //           )
-            //           .then((_) => setState(() {}));
-            //     },
-            //     child: const Text('*тут можуть бути наші юзери*'),
-            //   ),
-            // ),
-            
-          ],
-        ),
-        */
-          ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.black,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.all(20.0),
-              minimumSize: const Size(250.0, 30.0),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new),
-            label: const Text('Back'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (_) => const AddUserPage(),
-                        fullscreenDialog: true,
-                      ),
-                    )
-                    .then((_) => setState(() {}));
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
-        ]));
+    super.dispose();
   }
 
-// E/SQLiteLog( 4064): (1) no such table: users in "SELECT * FROM users ORDER BY id"
+  Future refreshNotes() async {
+    setState(() => isLoading = true);
+
+    this.employees = await EmployeesDatabase.instance.readAllNotes();
+
+    setState(() => isLoading = false);
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Employees',
+            style: TextStyle(fontSize: 24),
+          ),
+          actions: [const Icon(Icons.search), const SizedBox(width: 12)],
+        ),
+        body: Center(
+          child: isLoading
+              ? const CircularProgressIndicator()
+              : employees.isEmpty
+                  ? const Text(
+                      'No Employees',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    )
+                  : buildNotes(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          child: const Icon(Icons.add),
+          onPressed: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => const AddEditEmployeePage()),
+            );
+
+            refreshNotes();
+          },
+        ),
+      );
+
+  Widget buildNotes() => StaggeredGridView.countBuilder(
+        padding: const EdgeInsets.all(8),
+        itemCount: employees.length,
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+        crossAxisCount: 4,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        itemBuilder: (context, index) {
+          final employee = employees[index];
+
+          return GestureDetector(
+            onTap: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    EmployeeDetailPage(employeeId: employee.id!),
+              ));
+
+              refreshNotes();
+            },
+            child: EmployeeCardWidget(employee: employee, index: index),
+          );
+        },
+      );
 }
