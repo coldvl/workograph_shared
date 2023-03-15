@@ -49,7 +49,6 @@ class _EmployeesPageState extends State<EmployeesPage> {
             'Employees',
             style: TextStyle(fontSize: 24),
           ),
-          actions: [const Icon(Icons.search), const SizedBox(width: 12)],
         ),
         body: Center(
           child: isLoading
