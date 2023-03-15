@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:workograph_shared/services/database_service.dart';
 
 class HomeApp extends StatefulWidget {
   const HomeApp({Key? key}) : super(key: key);
@@ -9,8 +10,8 @@ class HomeApp extends StatefulWidget {
 }
 
 class Clock extends State<HomeApp> {
-  int seconds = 59,minutes = 59,hours = 3;
-  String digitSeconds = "00",digitMinutes = "00",digitHours = "04";
+  int seconds = 59, minutes = 59, hours = 3;
+  String digitSeconds = "00", digitMinutes = "00", digitHours = "04";
   Timer? timer;
   bool started = false;
   bool _hasBeenPressed = true;
@@ -43,21 +44,19 @@ class Clock extends State<HomeApp> {
       int localMinutes = minutes;
       int localHours = hours;
 
-      if(localSeconds > 0) {
+      if (localSeconds > 0) {
         localSeconds--;
         if (localSeconds == 0 && localMinutes > 0) {
           localMinutes--;
-          localSeconds=59;
+          localSeconds = 59;
 
-
-          if (localSeconds ==0 && localMinutes ==0 &&localHours>0){
-            localSeconds==59;
-            localMinutes==59;
+          if (localSeconds == 0 && localMinutes == 0 && localHours > 0) {
+            localSeconds == 59;
+            localMinutes == 59;
             localHours--;
           }
         }
-      }
-      else {
+      } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Finish')));
         timer.cancel();
