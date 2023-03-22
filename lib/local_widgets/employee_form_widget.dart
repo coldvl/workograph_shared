@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EmployeeFormWidget extends StatelessWidget {
   final int? totalHours;
@@ -62,21 +63,34 @@ class EmployeeFormWidget extends StatelessWidget {
         onChanged: onChangedName,
       );
 
-  Widget buildTotalHours() => TextFormField(
-        maxLines: 1,
-        initialValue: totalHours.toString(),
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-        ),
+  Widget buildTotalHours() => TextField(
         decoration: const InputDecoration(
-          border: InputBorder.none,
           hintText: 'The sum of hours worked',
+          border: InputBorder.none,
           hintStyle: TextStyle(color: Colors.black),
         ),
-        validator: (title) =>
-            title != null && title.isEmpty ? 'The title cannot be empty' : null,
-        onChanged: onChangedName,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only numbers can be entered
+        onChanged: (totalHours) => onChangedTotalHours(int.parse(totalHours)),
       );
+
+  //   TextFormField(
+  //   maxLines: 1,
+  //   initialValue: totalHours.toString(),
+  //   style: const TextStyle(
+  //     color: Colors.black,
+  //     fontWeight: FontWeight.bold,
+  //     fontSize: 24,
+  //   ),
+  //   decoration: const InputDecoration(
+  //     border: InputBorder.none,
+  //     hintText: 'The sum of hours worked',
+  //     hintStyle: TextStyle(color: Colors.black),
+  //   ),
+  //   validator: (title) =>
+  //       title != null && title.isEmpty ? 'The title cannot be empty' : null,
+  //   onChanged: onChangedName,
+  // );
 }

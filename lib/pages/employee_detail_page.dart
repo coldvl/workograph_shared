@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:workograph_shared/pages/add_user.dart';
 import 'package:workograph_shared/models/user.dart';
 import 'package:workograph_shared/services/database_service.dart';
+import 'package:workograph_shared/local_widgets/clock.dart';
 
 class EmployeeDetailPage extends StatefulWidget {
   final int employeeId;
@@ -94,4 +95,5 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
           Navigator.of(context).pop();
         },
       );
+  Widget clock() => HomeApp();
 }
