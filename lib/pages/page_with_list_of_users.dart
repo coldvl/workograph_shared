@@ -72,7 +72,7 @@ class _EmployeesPageState extends State<EmployeesPage> {
         padding: const EdgeInsets.all(8),
         itemCount: employees.length,
         staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-        crossAxisCount: 4,
+        crossAxisCount: 1,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {

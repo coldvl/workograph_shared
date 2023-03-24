@@ -23,20 +23,6 @@ class EmployeeFormWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Slider(
-              //         value: (totalHours ?? 0).toDouble(),
-              //         min: 0,
-              //         max: 5,
-              //         divisions: 5,
-              //         onChanged: (totalHours) =>
-              //             onChangedTotalHours(totalHours.toInt()),
-              //       ),
-              //     )
-              //   ],
-              // ),
               buildName(),
               buildTotalHours(),
               const SizedBox(height: 8),
@@ -75,22 +61,4 @@ class EmployeeFormWidget extends StatelessWidget {
         ], // Only numbers can be entered
         onChanged: (totalHours) => onChangedTotalHours(int.parse(totalHours)),
       );
-
-  //   TextFormField(
-  //   maxLines: 1,
-  //   initialValue: totalHours.toString(),
-  //   style: const TextStyle(
-  //     color: Colors.black,
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 24,
-  //   ),
-  //   decoration: const InputDecoration(
-  //     border: InputBorder.none,
-  //     hintText: 'The sum of hours worked',
-  //     hintStyle: TextStyle(color: Colors.black),
-  //   ),
-  //   validator: (title) =>
-  //       title != null && title.isEmpty ? 'The title cannot be empty' : null,
-  //   onChanged: onChangedName,
-  // );
 }

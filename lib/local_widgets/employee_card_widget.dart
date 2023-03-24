@@ -12,7 +12,7 @@ final _lightColors = [
 ];
 
 class EmployeeCardWidget extends StatelessWidget {
-  EmployeeCardWidget({
+  const EmployeeCardWidget({
     Key? key,
     required this.employee,
     required this.index,

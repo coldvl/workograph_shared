@@ -97,6 +97,8 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
       name: name,
       totalHours: totalHours,
       createdTime: DateTime.now(),
+      isOn: false,
+      startedTime: DateTime.now(),
     );
 
     await EmployeesDatabase.instance.create(note);

@@ -55,7 +55,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     Text(
                       employee.name,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -63,13 +63,15 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     SizedBox(height: 8),
                     Text(
                       DateFormat.yMMMd().format(employee.createdTime),
-                      style: TextStyle(color: Colors.white38),
+                      style: TextStyle(color: Colors.black54),
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Description',
-                      style: TextStyle(color: Colors.white70, fontSize: 18),
-                    )
+                      employee.totalHours.toString(),
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    SizedBox(height: 16),
+                    clock(),
                   ],
                 ),
               ),
@@ -95,5 +97,5 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
           Navigator.of(context).pop();
         },
       );
-  Widget clock() => HomeApp();
+  Widget clock() => TimerWidget(employee: employee);
 }

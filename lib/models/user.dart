@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/widgets.dart';
 
@@ -9,7 +10,7 @@ const String tableEmployees = 'employees';
 class EmployeesFields {
   static final List<String> values = [
     /// Add all fields
-    id, totalHours, name, createdTime
+    id, totalHours, name, createdTime,
   ];
 
   static const String id = '_id';
@@ -25,14 +26,17 @@ class Employee {
 
   final int totalHours;
   final String name;
-
+  bool isOn;
+  DateTime startedTime;
   final DateTime createdTime;
 
-  const Employee({
+  Employee({
     this.id,
+    required this.isOn,
     required this.totalHours,
     required this.name,
     required this.createdTime,
+    required this.startedTime,
   });
 
   Map<String, Object?> toJson() => {
@@ -48,6 +52,8 @@ class Employee {
         name: json[EmployeesFields.name] as String,
         createdTime:
             DateTime.parse(json[EmployeesFields.createdTime] as String),
+        isOn: false,
+        startedTime: DateTime.now(),
       );
 
   Employee copy({
@@ -61,5 +67,11 @@ class Employee {
         totalHours: totalHours ?? this.totalHours,
         name: name ?? this.name,
         createdTime: createdTime ?? this.createdTime,
+        isOn: isOn,
+        startedTime: startedTime,
       );
+
+  void toggleOn() {
+    isOn = !isOn;
+  }
 }
