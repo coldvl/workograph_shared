@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:workograph_shared/services/database_service.dart';
 import 'package:workograph_shared/models/user.dart';
 
+import 'package:flutter/material.dart';
+
 class TimerWidget extends StatefulWidget {
   final Employee employee;
 
@@ -15,67 +17,64 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  late Timer _timer;
-  int _secondsElapsed = 0;
+  late DateTime startTime;
+  late Duration elapsed;
 
   @override
   void initState() {
     super.initState();
     if (widget.employee.isOn) {
-      _startTimer();
+      startTime = widget.employee.startedTime;
+      elapsed = DateTime.now().difference(startTime);
+    } else {
+      startTime = DateTime.now();
+      elapsed = Duration.zero;
     }
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        _secondsElapsed++;
-      });
-    });
-  }
-
-  void _stopTimer() {
-    _timer.cancel();
-    setState(() {
-      _secondsElapsed = 0;
-    });
-  }
-
-  @override
-  void dispose() {
-    if (_timer.isActive) {
-      _timer.cancel();
-    }
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${(_secondsElapsed ~/ 3600).toString().padLeft(2, '0')}:${((_secondsElapsed ~/ 60) % 60).toString().padLeft(2, '0')}:${(_secondsElapsed % 60).toString().padLeft(2, '0')}',
+          'Time elapsed: ${_formatDuration(elapsed)}',
           style: TextStyle(fontSize: 24.0),
         ),
         SizedBox(height: 16.0),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              widget.employee.isOn = !widget.employee.isOn;
-              if (widget.employee.isOn) {
-                _startTimer();
-              } else {
-                _stopTimer();
-              }
-            });
-          },
-          child: Text(widget.employee.isOn ? 'Stop' : 'Start'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              child: Text(widget.employee.isOn ? 'Stop' : 'Start'),
+              onPressed: () {
+                setState(() {
+                  if (widget.employee.isOn) {
+                    widget.employee.isOn = false;
+                    widget.employee.startedTime = DateTime.now();
+                    elapsed = Duration.zero;
+                  } else {
+                    widget.employee.isOn = true;
+                    widget.employee.startedTime = startTime;
+                  }
+                });
+              },
+            ),
+          ],
         ),
       ],
     );
   }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${duration.inHours}:$twoDigitMinutes:$twoDigitSeconds";
+  }
 }
+
+
+
 
 
 
