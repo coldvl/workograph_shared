@@ -10,11 +10,14 @@ const String tableEmployees = 'employees';
 class EmployeesFields {
   static final List<String> values = [
     /// Add all fields
-    id, totalHours, name, createdTime,
+    id, totalHours, name, createdTime, isOn, isPaused, startedTime, elapsed
   ];
 
   static const String id = '_id';
-
+  static const String isOn = 'isOn';
+  static const String isPaused = 'isPaused';
+  static const String startedTime = 'startedTime';
+  static const String elapsed = 'elapsed';
   static const String totalHours = 'totalHours';
   static const String name = 'name';
 
@@ -23,11 +26,12 @@ class EmployeesFields {
 
 class Employee {
   final int? id;
-
   final int totalHours;
   final String name;
   bool isOn;
+  bool isPaused;
   DateTime startedTime;
+  Duration elapsed;
   final DateTime createdTime;
 
   Employee({
@@ -37,6 +41,8 @@ class Employee {
     required this.name,
     required this.createdTime,
     required this.startedTime,
+    required this.elapsed,
+    required this.isPaused,
   });
 
   Map<String, Object?> toJson() => {
@@ -44,6 +50,10 @@ class Employee {
         EmployeesFields.totalHours: totalHours,
         EmployeesFields.name: name,
         EmployeesFields.createdTime: createdTime.toIso8601String(),
+        EmployeesFields.isOn: isOn,
+        EmployeesFields.isPaused: isPaused,
+        EmployeesFields.startedTime: startedTime.toIso8601String(),
+        EmployeesFields.elapsed: elapsed.inSeconds,
       };
 
   static Employee fromJson(Map<String, Object?> json) => Employee(
@@ -54,6 +64,8 @@ class Employee {
             DateTime.parse(json[EmployeesFields.createdTime] as String),
         isOn: false,
         startedTime: DateTime.now(),
+        elapsed: Duration(hours: 4),
+        isPaused: false,
       );
 
   Employee copy({
@@ -61,17 +73,19 @@ class Employee {
     int? totalHours,
     String? name,
     DateTime? createdTime,
+    bool? isOn,
+    DateTime? startedTime,
+    Duration? elapsed,
+    bool? isPaused,
   }) =>
       Employee(
         id: id ?? this.id,
         totalHours: totalHours ?? this.totalHours,
         name: name ?? this.name,
         createdTime: createdTime ?? this.createdTime,
-        isOn: isOn,
-        startedTime: startedTime,
+        isOn: isOn ?? this.isOn,
+        startedTime: startedTime ?? this.startedTime,
+        elapsed: elapsed ?? this.elapsed,
+        isPaused: isPaused ?? this.isPaused,
       );
-
-  void toggleOn() {
-    isOn = !isOn;
-  }
 }

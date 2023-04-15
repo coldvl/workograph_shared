@@ -61,46 +61,48 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
           onPrimary: Colors.black,
           primary: isFormValid ? null : Colors.grey.shade700,
         ),
-        onPressed: addOrUpdateNote,
+        onPressed: addOrUpdateEmployee,
         child: Text('Save'),
       ),
     );
   }
 
-  void addOrUpdateNote() async {
+  void addOrUpdateEmployee() async {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
       final isUpdating = widget.employee != null;
 
       if (isUpdating) {
-        await updateNote();
+        await updateEmployee();
       } else {
-        await addNote();
+        await addEmployee();
       }
 
       Navigator.of(context).pop();
     }
   }
 
-  Future updateNote() async {
-    final note = widget.employee!.copy(
+  Future updateEmployee() async {
+    final employee = widget.employee!.copy(
       totalHours: totalHours,
       name: name,
     );
 
-    await EmployeesDatabase.instance.update(note);
+    await EmployeesDatabase.instance.update(employee);
   }
 
-  Future addNote() async {
-    final note = Employee(
+  Future addEmployee() async {
+    final employee = Employee(
       name: name,
       totalHours: totalHours,
       createdTime: DateTime.now(),
       isOn: false,
       startedTime: DateTime.now(),
+      elapsed: Duration(hours: 4),
+      isPaused: false,
     );
 
-    await EmployeesDatabase.instance.create(note);
+    await EmployeesDatabase.instance.create(employee);
   }
 }

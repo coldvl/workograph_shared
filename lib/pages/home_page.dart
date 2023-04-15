@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'page_with_list_of_users.dart';
 import 'statistics_for_month.dart';
 import 'statistics_for_today.dart';
+import 'package:workograph_shared/services/database_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context)
                     .push(
                       MaterialPageRoute(
-                        builder: (_) => const StatsForToday(),
+                        builder: (_) => EmployeeTable(),
                         fullscreenDialog: true,
                       ),
                     )

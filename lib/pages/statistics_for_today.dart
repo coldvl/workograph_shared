@@ -1,54 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:workograph_shared/models/user.dart';
+import 'package:workograph_shared/services/database_service.dart';
 
-class StatsForToday extends StatelessWidget {
-  const StatsForToday({super.key});
+class EmployeeTable extends StatefulWidget {
+  @override
+  _EmployeeTableState createState() => _EmployeeTableState();
+}
+
+class _EmployeeTableState extends State<EmployeeTable> {
+  late List<Employee> employees;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    refreshNotes();
+  }
+
+  @override
+  void dispose() {
+    EmployeesDatabase.instance.close();
+
+    super.dispose();
+  }
+
+  Future refreshNotes() async {
+    setState(() => isLoading = true);
+
+    this.employees = await EmployeesDatabase.instance.readAllNotes();
+
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: const Color.fromARGB(255, 231, 11, 11),
-        body: Column(
-          children: [
-            Table(
-              border: TableBorder.all(),
-              children: [
-                buildRow(['Option A', ' ']),
-                buildRow(['Option B', ' ']),
-                buildRow(['Option C', ' ']),
-                buildRow(['Option D', ' ']),
-                buildRow(['Option E', ' ']),
-                buildRow(['Option F', ' ']),
-                buildRow(['Option H', ' ']),
-                buildRow(['Option I', ' ']),
-              ],
-            ),
-            const Text(' '),
-            Column(
-              children: [
-                TextButton.icon(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.all(20.0),
-                    minimumSize: const Size(250.0, 30.0),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                  label: const Text('Back'),
-                )
-              ],
-            )
-          ],
+        body: Center(
+          child: isLoading
+              ? const CircularProgressIndicator()
+              : employees.isEmpty
+                  ? const Text(
+                      'No Employees',
+                      style: TextStyle(color: Colors.black, fontSize: 24),
+                    )
+                  : buildTable(),
         ),
       );
 
-  TableRow buildRow(List<String> celles) => TableRow(
-        children: celles.map((cell) {
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Center(child: Text(cell)),
-          );
-        }).toList(),
+  Widget buildTable() => DataTable(
+        columns: const [
+          DataColumn(label: Text('Name')),
+          DataColumn(label: Text('Elapsed')),
+        ],
+        rows: employees
+            .map(
+              (employee) => DataRow(cells: [
+                DataCell(Text(employee.name)),
+                DataCell(Text(employee.elapsed.inHours.toString())),
+              ]),
+            )
+            .toList(),
       );
 }
