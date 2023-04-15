@@ -12,7 +12,7 @@ final _lightColors = [
 ];
 
 class EmployeeCardWidget extends StatelessWidget {
-  EmployeeCardWidget({
+  const EmployeeCardWidget({
     Key? key,
     required this.employee,
     required this.index,
@@ -37,10 +37,6 @@ class EmployeeCardWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              time,
-              style: TextStyle(color: Colors.grey.shade700),
-            ),
             const SizedBox(height: 4),
             Text(
               employee.name,

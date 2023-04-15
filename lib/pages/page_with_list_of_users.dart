@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:workograph_shared/models/user.dart';
 import 'package:workograph_shared/services/database_service.dart';
 import 'package:workograph_shared/pages/add_user.dart';
-import 'package:workograph_shared/pages/clock.dart';
+import 'package:workograph_shared/local_widgets/clock.dart';
 import 'package:flutter/widgets.dart';
 import 'package:workograph_shared/local_widgets/employee_form_widget.dart';
 import 'package:workograph_shared/local_widgets/employee_card_widget.dart';
@@ -44,24 +44,18 @@ class _EmployeesPageState extends State<EmployeesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Employees',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
         body: Center(
           child: isLoading
               ? const CircularProgressIndicator()
               : employees.isEmpty
                   ? const Text(
                       'No Employees',
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                      style: TextStyle(color: Colors.black, fontSize: 24),
                     )
                   : buildNotes(),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.yellow,
           child: const Icon(Icons.add),
           onPressed: () async {
             await Navigator.of(context).push(
@@ -77,8 +71,8 @@ class _EmployeesPageState extends State<EmployeesPage> {
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: const EdgeInsets.all(8),
         itemCount: employees.length,
-        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
-        crossAxisCount: 4,
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+        crossAxisCount: 1,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
