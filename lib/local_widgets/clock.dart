@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'package:workograph_shared/services/database_service.dart';
 import 'package:workograph_shared/models/user.dart';
-
-import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {
   final Employee employee;
@@ -26,6 +23,9 @@ class _TimerWidgetState extends State<TimerWidget> {
     if (widget.employee.isOn) {
       startTime = widget.employee.startedTime;
       elapsed = DateTime.now().difference(startTime);
+    } else if (widget.employee.isPaused) {
+      startTime = DateTime.now().subtract(widget.employee.elapsed);
+      elapsed = widget.employee.elapsed;
     } else {
       startTime = DateTime.now();
       elapsed = Duration.zero;
@@ -45,16 +45,17 @@ class _TimerWidgetState extends State<TimerWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              child: Text(widget.employee.isOn ? 'Stop' : 'Start'),
+              child: Text(widget.employee.isOn ? 'Pause' : 'Start'),
               onPressed: () {
                 setState(() {
                   if (widget.employee.isOn) {
                     widget.employee.isOn = false;
-                    widget.employee.startedTime = DateTime.now();
-                    elapsed = Duration.zero;
+                    widget.employee.isPaused = true;
                   } else {
                     widget.employee.isOn = true;
-                    widget.employee.startedTime = startTime;
+                    widget.employee.isPaused = false;
+                    widget.employee.startedTime =
+                        DateTime.now().subtract(widget.employee.elapsed);
                   }
                 });
               },

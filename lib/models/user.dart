@@ -10,15 +10,18 @@ const String tableEmployees = 'employees';
 class EmployeesFields {
   static final List<String> values = [
     /// Add all fields
-    id, totalHours, name, createdTime,
+    id, totalHours, name, createdTime, isOn, startedTime, isPaused
   ];
 
   static const String id = '_id';
 
   static const String totalHours = 'totalHours';
   static const String name = 'name';
-
+  static const String isOn = 'isOn';
+  static const String startedTime = 'startedTime';
+  static const String isPaused = 'isPaused';
   static const String createdTime = 'createdTime';
+  static const String elapsed = 'elapsed';
 }
 
 class Employee {
@@ -28,6 +31,8 @@ class Employee {
   final String name;
   bool isOn;
   DateTime startedTime;
+  Duration elapsed;
+  bool isPaused = false;
   final DateTime createdTime;
 
   Employee({
@@ -36,6 +41,8 @@ class Employee {
     required this.totalHours,
     required this.name,
     required this.createdTime,
+    required this.isPaused,
+    required this.elapsed,
     required this.startedTime,
   });
 
@@ -44,6 +51,10 @@ class Employee {
         EmployeesFields.totalHours: totalHours,
         EmployeesFields.name: name,
         EmployeesFields.createdTime: createdTime.toIso8601String(),
+        EmployeesFields.isOn: isOn,
+        EmployeesFields.startedTime: startedTime.toIso8601String(),
+        EmployeesFields.isPaused: isPaused,
+        EmployeesFields.elapsed: elapsed.inSeconds,
       };
 
   static Employee fromJson(Map<String, Object?> json) => Employee(
@@ -54,6 +65,9 @@ class Employee {
             DateTime.parse(json[EmployeesFields.createdTime] as String),
         isOn: false,
         startedTime: DateTime.now(),
+        isPaused: false,
+        // set elased time as 4 hours
+        elapsed: const Duration(hours: 4),
       );
 
   Employee copy({
@@ -69,6 +83,8 @@ class Employee {
         createdTime: createdTime ?? this.createdTime,
         isOn: isOn,
         startedTime: startedTime,
+        isPaused: isPaused,
+        elapsed: elapsed,
       );
 
   void toggleOn() {
