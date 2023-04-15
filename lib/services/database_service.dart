@@ -27,17 +27,20 @@ class EmployeesDatabase {
 
   Future _createDB(Database db, int version) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-
     const intType = 'INTEGER NOT NULL';
     const textType = 'TEXT NOT NULL';
+    const boolType = 'BOOLEAN NOT NULL';
+
     await db.execute('''
                     CREATE TABLE $tableEmployees (
                       ${EmployeesFields.id} $idType,
-                      
                       ${EmployeesFields.totalHours} $intType,
                       ${EmployeesFields.name} $textType,
-                      
-                      ${EmployeesFields.createdTime} $textType
+                      ${EmployeesFields.isOn} $boolType,
+                      ${EmployeesFields.startedTime} $textType,
+                      ${EmployeesFields.isPaused} $boolType,
+                      ${EmployeesFields.createdTime} $textType,
+                      ${EmployeesFields.elapsed} $intType
                     )
                     ''');
   }

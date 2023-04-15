@@ -99,6 +99,8 @@ class _AddEditEmployeePageState extends State<AddEditEmployeePage> {
       createdTime: DateTime.now(),
       isOn: false,
       startedTime: DateTime.now(),
+      isPaused: false,
+      elapsed: const Duration(hours: 4),
     );
 
     await EmployeesDatabase.instance.create(note);
